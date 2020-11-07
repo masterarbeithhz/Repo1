@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-red3
+  labels:
+    app: node-red3
+spec:
+  selector:
+    matchLabels:
+      app: node-red3
+  template:
+    metadata:
+      labels:
+        app: node-red3
+    spec:
+      containers:
+      - name: node-red3
+        image: nodered/node-red:latest
+        ports:
+        - containerPort: 1880
+          name: node-red-ui
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: node-red-data
+          subPathExpr: $(NODE_NAME)
+          mountPath: /data
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: TZ
+          value: America/Los_Angeles
+      volumes:
+      - name: node-red-data
+        persistentVolumeClaim:
+          claimName: node-red-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: node-red-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
+kind: Service 
+apiVersion: v1 
+metadata: 
+  name: node-red
+spec: 
+  selector: 
+    app: node-red-ui
+  ports: 
+  - protocol: TCP 
+    port: 1880
+    targetPort: 1880 
+    nodePort: 31000 
+  type: NodePort
