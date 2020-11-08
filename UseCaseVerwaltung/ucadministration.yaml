@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ucadmin-service
+  labels:
+    app: ucadmin
+spec:
+  selector:
+    app: ucadmin
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32223
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ucadmin
+  labels:
+    app: ucadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ucadmin
+  template:
+    metadata:
+      labels:
+        app: ucadmin
+    spec:
+      containers:
+      - name: ucadmin
+        image: masterarbeithhz/thesis:ucadminv3
