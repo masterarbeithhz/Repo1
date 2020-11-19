@@ -1,12 +1,26 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include "login/config.php";
+
+// Check user login or not
+if (!isset($_SESSION['uname'])) {
+    header('Location: login/index.php');
+}
+
+// logout
+if (isset($_POST['but_logout'])) {
+    session_destroy();
+    header('Location: login/index.php');
+}
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <title>Paul's Training Videos</title>
-  <link href="../Content/bootstrap.css" rel="stylesheet" />
+  <link href="Content/bootstrap.css" rel="stylesheet" />
 
-  <script src="../Scripts/jquery-1.11.0.min.js"></script>
-  <script src="../Scripts/bootstrap.min.js"></script>
+  <script src="Scripts/jquery-1.11.0.min.js"></script>
+  <script src="Scripts/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -78,6 +92,15 @@
       </div>
     </div>
   </div>
+
+  <h1>Navigation</h1>
+    <form action="login/home.php">
+        <input type="submit" value="Hauptmenü" />
+    </form>
+    <form method='post' action="">
+        <input type="submit" value="Logout" name="but_logout">
+    </form>
+
   <script>
     // Next id for adding a new Product
     var nextId = 1;

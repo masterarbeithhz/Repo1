@@ -8,11 +8,24 @@ spec:
   selector:
     app: dvisual
   ports:
-    - protocol: TCP
+    - name: http
       port: 80
-      targetPort: 80
-      nodePort: 32222
-  type: NodePort
+---
+#Definition Reverse-Proxy für einen Service
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: dvisual-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /visualisierung/(.*)
+          backend:
+            serviceName: dvisual-service
+            servicePort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,4 +45,4 @@ spec:
     spec:
       containers:
       - name: dvisual
-        image: masterarbeithhz/thesis:visualv2
+        image: masterarbeithhz/thesis:visualv3

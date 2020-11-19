@@ -26,12 +26,7 @@ RUN mkdir /var/www/js
 EXPOSE 80
 
 # Copy this repo into place.
-COPY image_files/data.php /var/www/html/data.php
-COPY image_files/index.php /var/www/html/index.php 
-COPY image_files/data_bar.php /var/www/html/data_bar.php
-COPY image_files/index_bar.php /var/www/html/index_bar.php 
-COPY image_files/js/Chart.min.js /var/www/html/js/Chart.min.js 
-COPY image_files/js/jquery.min.js /var/www/html/js/jquery.min.js
+COPY image_files /var/www/html/image_files 
 
 # Update the default apache site with the config we created.
 #ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf

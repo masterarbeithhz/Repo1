@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
-//$conn = mysqli_connect("mysql-service","root","Philipp1","testdb");
-$conn = mysqli_connect("localhost","root","philipp","testdb");
+$conn = mysqli_connect("mysql-service","root","Philipp1","testdb");
+//$conn = mysqli_connect("localhost","root","philipp","testdb");
 
 $sqlQuery_devices = "SELECT * FROM devices ORDER BY dev_id";
 $result_devices = mysqli_query($conn,$sqlQuery_devices);

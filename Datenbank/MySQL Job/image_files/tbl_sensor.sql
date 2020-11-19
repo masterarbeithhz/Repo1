@@ -28,9 +28,10 @@ SET
 -- Database: `phppot`
 --
 -- --------------------------------------------------------
-
 CREATE DATABASE IF NOT EXISTS testdb;
+
 USE testdb;
+
 --
 -- Table structure for table `devices`
 --
@@ -54,7 +55,13 @@ INSERT INTO
     `dev_longitude`
   )
 VALUES
-  (1, '101', 'Eberhardstrasse', 48.896941, 9.1927511),
+  (
+    1,
+    '101',
+    'Eberhardstrasse',
+    48.896941,
+    9.1927511
+  ),
   (2, '202', 'Eberhardstrasse', 48.897328, 9.192156),
   (3, '303', 'Stadthalle', 00.00000, 0.00000),
   (4, '404', 'Stadthalle', 48.8944303, 9.190356),
@@ -143,6 +150,7 @@ VALUES
   (2, 'Stadthalle', 17),
   (3, 'Freibad', 19),
   (4, 'Kirche', 30);
+
 ALTER TABLE
   `nodeRedResults`
 ADD
@@ -153,3 +161,32 @@ ALTER TABLE
 MODIFY
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 5;
+
+--#########################################################################################
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(35) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8;
+
+INSERT INTO
+  `users` (
+    `id`,
+    `username`,
+    `password`
+  )
+VALUES
+  (1, 'admin', 'pw'),
+  (2, 'test', 'pw2');
+
+ALTER TABLE
+  `users`
+ADD
+  PRIMARY KEY (`id`);
+
+ALTER TABLE
+  `users`
+MODIFY
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 3;

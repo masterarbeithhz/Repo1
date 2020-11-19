@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: jdatabase
-        image: masterarbeithhz/thesis:mysqlJobv8
+        image: masterarbeithhz/thesis:mysqlJobv10
         args:
         - /bin/bash
         - -c
