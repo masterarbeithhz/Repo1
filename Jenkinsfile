@@ -10,14 +10,14 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git url:'https://github.com/masterarbeithhz/demo1.git', branch:'master'
+        git url:'https://github.com/masterarbeithhz/Repo1.git', branch:'master'
       }
     }
     
       stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("masterarbeithhz/pipelinetest:${env.BUILD_ID}")
+                    myapp = docker.build("masterarbeithhz/pipelinetest2:${env.BUILD_ID}")
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "hellowhale.yml", kubeconfigId: "mykubeconfig1")
+          kubernetesDeploy(configs: "landingpage.yaml", kubeconfigId: "mykubeconfig1")
         }
       }
     }
